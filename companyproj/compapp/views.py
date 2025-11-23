@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 from .models import Employee, Project
 from django.utils import timezone
+from .forms import Employee , Project
 
 # Create your views here.
 
@@ -21,3 +22,25 @@ def employee_detail(request, employee_id):
 def employee_engineers(request):
     employees = Employee.objects.filter(position__icontains="engineer")
     return render(request, 'employee_list.html', {'employees': employees})
+
+def create_employee(request):
+    if request.method == "POST":
+        form = Employee(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_list')
+    else:
+        form = Employee()
+
+    return render(request, 'create_employee.html', {'form': form})
+
+def create_project(request):
+    if request.method == "POST":
+        form = Project(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_detail')
+    else:
+        form = Project()
+
+    return render(request, 'create_project.html', {'form': form})

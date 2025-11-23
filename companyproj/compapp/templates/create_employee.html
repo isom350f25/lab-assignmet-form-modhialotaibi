@@ -1,0 +1,8 @@
+<h2>Create Employee</h2>
+
+
+<form action="." method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+<input type="submit">Save Employee</input>
+</form>
