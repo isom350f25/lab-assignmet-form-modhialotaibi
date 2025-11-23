@@ -1,16 +1,25 @@
 from django import forms
-from .models import Project , Employee
+from .models import Employee, Project
 
 
-class Employee(forms.ModelForm):
-    class Meta:
-      model = Employee
-      fields = ["name", "date_joined", "date_of_birth", "phone_number","position"]
-      
-      
+class EmployeeForm(forms.ModelForm):
+   class Meta:
+       model = Employee
+       fields = [
+           'name',
+           'date_joined',
+           'date_of_birth',
+           'phone_number',
+           'position',
+       ]
 
-class Project(forms.ModelForm):
-    class Meta:
-        model = Project
-        fields = ["name", "start_date", "end_date", "amount"]
-    
+class ProjectForm(forms.ModelForm):
+   class Meta:
+       model = Project
+       fields = [
+           'employee',      # dropdown to pick employee
+           'name',
+           'start_date',
+           'end_date',
+           'amount',
+       ]
